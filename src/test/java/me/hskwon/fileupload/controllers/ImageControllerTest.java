@@ -30,6 +30,8 @@ class ImageControllerTest {
     @Test
     @DisplayName("postImage")
     void postImage() throws Exception {
+        String username = "username";
+
         String filename = "src/test/resources/files/image.jpg";
 
         String mockName = "image";
@@ -48,6 +50,6 @@ class ImageControllerTest {
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isCreated());
 
-        verify(imageStorage).upload(file.getBytes());
+        verify(imageStorage).upload(username, file.getBytes());
     }
 }

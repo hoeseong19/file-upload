@@ -10,7 +10,7 @@ import java.io.OutputStream;
 
 @Component
 public class LocalImageStorage {
-    public String upload(byte[] content) {
+    public String upload(String username, byte[] content) {
         String id = TSID.Factory.getTsid().toString();
         File file = new File("data/%s.%s".formatted(id, "jpg"));
 

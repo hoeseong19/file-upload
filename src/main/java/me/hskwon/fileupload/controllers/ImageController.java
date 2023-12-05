@@ -21,12 +21,13 @@ public class ImageController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public String postImage(@ModelAttribute UploadImageDto uploadImageDto) throws IOException {
+        String username = uploadImageDto.username();
         MultipartFile multipartFile = uploadImageDto.image();
 
         if (multipartFile == null || multipartFile.isEmpty()) {
             return "No Image";
         }
 
-        return this.imageStorage.upload(multipartFile.getBytes());
+        return this.imageStorage.upload(username, multipartFile.getBytes());
     }
 }
