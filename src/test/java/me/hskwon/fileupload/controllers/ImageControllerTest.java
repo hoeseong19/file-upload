@@ -32,6 +32,12 @@ class ImageControllerTest {
     void postImage() throws Exception {
         String username = "username";
 
+        String json = """
+                {
+                    "username": %s
+                }
+                """.formatted(username);
+
         String filename = "src/test/resources/files/image.jpg";
 
         String mockName = "image";
@@ -45,7 +51,9 @@ class ImageControllerTest {
                 new FileInputStream(filename)
         );
 
-        RequestBuilder requestBuilder = multipart("/images").file(file);
+        RequestBuilder requestBuilder = multipart("/images")
+                .file(file)
+                .content(json);
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isCreated());
