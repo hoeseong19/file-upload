@@ -10,12 +10,14 @@ import java.io.OutputStream;
 
 @Component
 public class LocalImageStorage {
-    public void upload(byte[] content) {
+    public String upload(byte[] content) {
         String id = TSID.Factory.getTsid().toString();
         File file = new File("data/%s.%s".formatted(id, "jpg"));
 
         try (OutputStream outputStream = new FileOutputStream(file)) {
             outputStream.write(content);
+
+            return "data/%s".formatted("data/%s.%s".formatted(id, "jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
