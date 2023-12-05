@@ -1,7 +1,7 @@
 package me.hskwon.fileupload.controllers;
 
 import me.hskwon.fileupload.dtos.UploadImageDto;
-import me.hskwon.fileupload.infrastructure.CloudinaryImageStorage;
+import me.hskwon.fileupload.infrastructure.LocalImageStorage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,9 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/images")
 public class ImageController {
-    private final CloudinaryImageStorage imageStorage;
+    private final LocalImageStorage imageStorage;
 
-    public ImageController(CloudinaryImageStorage imageStorage) {
+    public ImageController(LocalImageStorage imageStorage) {
         this.imageStorage = imageStorage;
     }
 

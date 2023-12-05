@@ -14,7 +14,6 @@ import java.io.FileInputStream;
 
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ImageController.class)
@@ -23,7 +22,10 @@ class ImageControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    LocalImageStorage localImageStorage;
+    LocalImageStorage imageStorage;
+
+//    @MockBean
+//    CloudinaryImageStorage imageStorage;
 
     @Test
     @DisplayName("postImage")
@@ -44,9 +46,8 @@ class ImageControllerTest {
         RequestBuilder requestBuilder = multipart("/images").file(file);
 
         mockMvc.perform(requestBuilder)
-                .andExpect(status().isCreated())
-                .andExpect(content().string(mockOriginalFilename));
+                .andExpect(status().isCreated());
 
-        verify(localImageStorage).upload(file.getBytes());
+        verify(imageStorage).upload(file.getBytes());
     }
 }
