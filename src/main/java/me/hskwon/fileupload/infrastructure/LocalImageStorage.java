@@ -12,12 +12,17 @@ import java.io.OutputStream;
 public class LocalImageStorage {
     public String upload(String username, byte[] content) {
         String id = TSID.Factory.getTsid().toString();
-        File file = new File("data/%s.%s".formatted(id, "jpg"));
+        File folder = new File("data/%s/".formatted(username));
+        File file = new File("data/%s/%s.%s".formatted(username, id, "jpg"));
+
+        if (!folder.exists()) {
+            System.out.println(folder.mkdir());
+        }
 
         try (OutputStream outputStream = new FileOutputStream(file)) {
             outputStream.write(content);
 
-            return "data/%s".formatted("data/%s.%s".formatted(id, "jpg"));
+            return "data/%s/%s.%s".formatted(username, id, "jpg");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
