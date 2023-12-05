@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.hypersistence:tsid:1.1.0'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
