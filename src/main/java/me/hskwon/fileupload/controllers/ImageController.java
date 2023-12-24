@@ -21,10 +21,10 @@ public class ImageController {
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     public String postImage(
-            @RequestPart UsernameDto usernameDto,
+            @RequestPart UsernameDto dto,
             @RequestPart MultipartFile image
     ) throws IOException {
-        String username = usernameDto.username();
+        String username = dto.username();
 
         if (image == null || image.isEmpty()) {
             return "No Image";
