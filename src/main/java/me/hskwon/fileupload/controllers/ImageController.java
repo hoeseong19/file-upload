@@ -1,6 +1,6 @@
 package me.hskwon.fileupload.controllers;
 
-import me.hskwon.fileupload.dtos.UploadImageDto;
+import me.hskwon.fileupload.dtos.UsernameDto;
 import me.hskwon.fileupload.infrastructure.LocalImageStorage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,16 +18,18 @@ public class ImageController {
         this.imageStorage = imageStorage;
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    public String postImage(@ModelAttribute UploadImageDto uploadImageDto) throws IOException {
-        String username = uploadImageDto.username();
-        MultipartFile multipartFile = uploadImageDto.image();
+    public String postImage(
+            @RequestPart UsernameDto usernameDto,
+            @RequestPart MultipartFile image
+    ) throws IOException {
+        String username = usernameDto.username();
 
-        if (multipartFile == null || multipartFile.isEmpty()) {
+        if (image == null || image.isEmpty()) {
             return "No Image";
         }
 
-        return this.imageStorage.upload(username, multipartFile.getBytes());
+        return this.imageStorage.upload(username, image.getBytes());
     }
 }
